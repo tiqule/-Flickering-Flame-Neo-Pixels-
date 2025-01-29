@@ -1,0 +1,31 @@
+#include <Adafruit_NeoPixel.h>
+
+#define LED_PIN    6  // Pin where the NeoPixel strip is connected
+#define LED_COUNT  5  // Number of LEDs in the strip
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  strip.begin();
+  strip.show();  // Initialize all pixels to 'off'
+}
+
+void loop() {
+  flickerFlame();  // Run the flame effect
+}
+
+void flickerFlame() {
+  for (int i = 0; i < LED_COUNT; i++) {
+    int flicker = random(50, 150);  // Random flickering effect
+
+    // Generate a warm flame color (shades of red, orange, yellow)
+    int red = 255;  // Red remains constant
+    int orange = (255, 70, 0) + flicker;  // orange varies slightly
+    int yellow = (255, 30, 0);  // yellow blue for a warm glow
+
+    strip.setPixelColor(i, strip.Color(red, orange, yellow));
+  }
+  
+  strip.show();
+  delay(random(50, 150)); // Random flicker speed for natural effect
+}
